@@ -23,11 +23,9 @@ public class main {
         dwelling.addFlat(22, twentyFour);
         dwelling.addFlat(12, twentyFour);
 
-        for (int i =0 ;i<20;i++){
+        for (int i = 0; i < 20; i++) {
             dwelling.removeFlat(i);
         }
-
-
 
 
         System.out.println("Flat 0 has " + dwelling.getFlat(0).getSquare() + " square and " + dwelling.getFlat(0).getRooms() + " rooms");
@@ -38,6 +36,7 @@ public class main {
 //        System.out.println("Flat 23 has " + dwelling.getFlat(23).getSquare() + " square and " + dwelling.getFlat(23).getRooms() + " rooms");
         System.out.println("Total number of flats: " + dwelling.getTotalNumberOfFlats());
         System.out.println("Total number of rooms " + dwelling.getTotalNumberOfRooms());
+        System.out.println(dwelling.getSortedArray());
 
 
     }

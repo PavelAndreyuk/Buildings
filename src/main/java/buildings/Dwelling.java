@@ -110,4 +110,21 @@ public class Dwelling {
         }
         return flat;
     }
+
+    public List<Flat> getSortedArray() {
+        List<Flat> flats = new ArrayList<>();
+        for (int i = 0; i < dwelling.size(); i++)
+            for (int j = 0; j < dwelling.get(i).getNumberOfFlats(); j++)
+                flats.add(dwelling.get(i).getFlat(j));
+        for (int k = flats.size() - 1; k >= 1; k--) {
+            for (int l = 0; l < k; l++) {
+                if (flats.get(l).getSquare() > flats.get(l + 1).getSquare()) {
+                    double tmp = flats.get(l).getSquare();
+                    flats.get(l).setSquare(flats.get(l + 1).getSquare());
+                    flats.get(l + 1).setSquare(tmp);
+                }
+            }
+        }
+        return flats;
+    }
 }
