@@ -1,24 +1,24 @@
-package buildings;
+package offices;
 
 import interfaces.Space;
 
-public class Flat implements Space {
+public class Office implements Space {
     private double square;
     private int rooms;
-    private final double STANDART_SQUARE = 50.0;
-    private final int STANDART_ROOMS = 2;
+    private final double STANDART_SQUARE = 250.0;
+    private final int STANDART_ROOMS = 1;
 
-    public Flat() {
+    public Office() {
         this.square = STANDART_SQUARE;
         this.rooms = STANDART_ROOMS;
     }
 
-    public Flat(double square) {
+    public Office(double square) {
         this.square = square;
         this.rooms = STANDART_ROOMS;
     }
 
-    public Flat(double square, int rooms) {
+    public Office(double square, int rooms) {
         this.square = square;
         this.rooms = rooms;
     }

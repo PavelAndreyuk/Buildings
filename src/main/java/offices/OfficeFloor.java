@@ -1,4 +1,4 @@
-package buildings;
+package offices;
 
 import interfaces.Floor;
 import interfaces.Space;
@@ -6,18 +6,18 @@ import interfaces.Space;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DwellingFloor implements Floor {
+public class OfficeFloor implements Floor {
     List<Space> floor;
 
-    public DwellingFloor(int flats) {
-        floor = new ArrayList<>(flats);
-        for (int i = 0; i < flats; i++) {
-            floor.add(new Flat());
+    public OfficeFloor(int offices) {
+        floor = new ArrayList<>(offices);
+        for (int i = 0; i < offices; i++) {
+            floor.add(new Office());
         }
     }
 
-    public DwellingFloor(List<Space> flats) {
-        this.floor = flats;
+    public OfficeFloor(List<Space> offices) {
+        this.floor = offices;
     }
 
     @Override
@@ -28,8 +28,8 @@ public class DwellingFloor implements Floor {
     @Override
     public double getSquare() {
         double sum = 0;
-        for (Space flats : floor) {
-            sum += flats.getSquare();
+        for (Space offices : floor) {
+            sum += offices.getSquare();
         }
         return sum;
     }
@@ -37,15 +37,15 @@ public class DwellingFloor implements Floor {
     @Override
     public int getRooms() {
         int sum = 0;
-        for (Space flats : floor) {
-            sum += flats.getRooms();
+        for (Space offices : floor) {
+            sum += offices.getRooms();
         }
         return sum;
     }
 
     @Override
     public List<Space> getFloor() {
-        return this.floor;
+        return floor;
     }
 
     @Override
@@ -54,13 +54,13 @@ public class DwellingFloor implements Floor {
     }
 
     @Override
-    public void setSpace(int index, Space flat) {
-        floor.set(index, flat);
+    public void setSpace(int index, Space office) {
+        floor.set(index, office);
     }
 
     @Override
-    public void addSpace(int index, Space flat) {
-        floor.add(index, flat);
+    public void addSpace(int index, Space office) {
+        floor.add(index, office);
     }
 
     @Override
@@ -71,13 +71,13 @@ public class DwellingFloor implements Floor {
     @Override
     public Space getBestSpace() {
         double max = floor.get(0).getSquare();
-        Space flat = floor.get(0);
+        Space office = floor.get(0);
         for (int i = 0; i < floor.size(); i++) {
             if (floor.get(i).getSquare() > max) {
                 max = floor.get(i).getSquare();
-                flat = floor.get(i);
+                office = floor.get(i);
             }
         }
-        return flat;
+        return office;
     }
 }

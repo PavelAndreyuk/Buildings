@@ -1,10 +1,14 @@
 package buildings;
 
+import interfaces.Building;
+import interfaces.Floor;
+import interfaces.Space;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dwelling {
-    List<DwellingFloor> dwelling;
+public class Dwelling implements Building {
+    List<Floor> dwelling;
 
     public Dwelling(int numberOfFloors, int[] numberOfFlats) {
         dwelling = new ArrayList<>(numberOfFloors);
@@ -13,96 +17,107 @@ public class Dwelling {
         }
     }
 
-    public Dwelling(ArrayList<DwellingFloor> floors) {
+    public Dwelling(List<Floor> floors) {
         this.dwelling = floors;
-
     }
 
+    @Override
     public int getNumberOfFloors() {
         return dwelling.size();
     }
 
-    public int getTotalNumberOfFlats() {
+    @Override
+    public int getSpaces() {
         int sum = 0;
         for (int i = 0; i < dwelling.size(); i++)
-            sum += dwelling.get(i).getNumberOfFlats();
+            sum += dwelling.get(i).getSpaces();
         return sum;
     }
 
-    public double getTotalSquare() {
+    @Override
+    public double getSquare() {
         double sum = 0;
         for (int i = 0; i < dwelling.size(); i++)
-            sum += dwelling.get(i).getTotalSquare();
+            sum += dwelling.get(i).getSquare();
         return sum;
     }
 
-    public int getTotalNumberOfRooms() {
+    @Override
+    public int getRooms() {
         int sum = 0;
         for (int i = 0; i < dwelling.size(); i++)
-            sum += dwelling.get(i).getTotalNumberOfRooms();
+            sum += dwelling.get(i).getRooms();
         return sum;
     }
 
-    public List<DwellingFloor> getDwelling() {
+    @Override
+    public List<Floor> getFloors() {
         return this.dwelling;
     }
 
-    public DwellingFloor getDwellingFloor(int numberOfDwellingFloor) {
-        return dwelling.get(numberOfDwellingFloor);
+    @Override
+    public Floor getFloor(int index) {
+        return dwelling.get(index);
     }
 
-    public void setDwellingFloor(int numberOfDwellingFloor, DwellingFloor floor) {
-        dwelling.set(numberOfDwellingFloor, floor);
+    @Override
+    public void setFloor(int index, Floor floor) {
+        dwelling.set(index, floor);
     }
 
-    public Flat getFlat(int numberOfFlat) {
+    @Override
+    public Space getSpace(int index) {
         int count = 0;
         int i, j;
-        Flat fl = new Flat();
+        Space fl = new Flat();
         for (i = 0; i < dwelling.size(); i++) {
-            for (j = 0; j < dwelling.get(i).getNumberOfFlats(); j++) {
-                if (count == numberOfFlat) fl = dwelling.get(i).getFlat(j);
+            for (j = 0; j < dwelling.get(i).getSpaces(); j++) {
+                if (count == index) fl = dwelling.get(i).getSpace(j);
                 count++;
             }
         }
         return fl;
     }
 
-    public void setFlat(int numberOfFlat, Flat flat) {
+    @Override
+    public void setSpace(int index, Space flat) {
         int count = 0;
         int i, j;
         for (i = 0; i < dwelling.size(); i++) {
-            for (j = 0; j < dwelling.get(i).getNumberOfFlats(); j++) {
-                if (count == numberOfFlat) dwelling.get(i).setFlat(j, flat);
+            for (j = 0; j < dwelling.get(i).getSpaces(); j++) {
+                if (count == index) dwelling.get(i).setSpace(j, flat);
                 count++;
             }
         }
     }
 
-    public void addFlat(int numberOfFlat, Flat flat) {
+    @Override
+    public void addSpace(int index, Space flat) {
         int count = 0;
         int i, j;
         for (i = 0; i < dwelling.size(); i++) {
-            for (j = 0; j < dwelling.get(i).getNumberOfFlats(); j++) {
-                if (count == numberOfFlat) dwelling.get(i).addFlat(j, flat);
+            for (j = 0; j < dwelling.get(i).getSpaces(); j++) {
+                if (count == index) dwelling.get(i).addSpace(j, flat);
                 count++;
             }
         }
     }
 
-    public void removeFlat(int numberOfFlat) {
+    @Override
+    public void removeSpace(int index) {
         int count = 0;
         int i, j;
         for (i = 0; i < dwelling.size(); i++) {
-            for (j = 0; j < dwelling.get(i).getNumberOfFlats(); j++) {
-                if (count == numberOfFlat) dwelling.get(i).removeFlat(j);
+            for (j = 0; j < dwelling.get(i).getSpaces(); j++) {
+                if (count == index) dwelling.get(i).removeSpace(j);
                 count++;
             }
         }
     }
 
-    public Flat getBestSpace() {
-        Flat flat = dwelling.get(0).getBestSpace();
+    @Override
+    public Space getBestSpace() {
+        Space flat = dwelling.get(0).getBestSpace();
         double max = dwelling.get(0).getBestSpace().getSquare();
         for (int i = 0; i < dwelling.size(); i++) {
             if (dwelling.get(i).getBestSpace().getSquare() > max)
@@ -111,11 +126,12 @@ public class Dwelling {
         return flat;
     }
 
-    public List<Flat> getSortedArray() {
-        List<Flat> flats = new ArrayList<>();
+    @Override
+    public List<Space> getSortedArray() {
+        List<Space> flats = new ArrayList<>();
         for (int i = 0; i < dwelling.size(); i++)
-            for (int j = 0; j < dwelling.get(i).getNumberOfFlats(); j++)
-                flats.add(dwelling.get(i).getFlat(j));
+            for (int j = 0; j < dwelling.get(i).getSpaces(); j++)
+                flats.add(dwelling.get(i).getSpace(j));
         for (int k = flats.size() - 1; k >= 1; k--) {
             for (int l = 0; l < k; l++) {
                 if (flats.get(l).getSquare() > flats.get(l + 1).getSquare()) {
