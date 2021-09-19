@@ -1,5 +1,7 @@
 package offices;
 
+import exceptions.InvalidRoomsCountException;
+import exceptions.InvalidSpaceAreaException;
 import interfaces.Space;
 
 public class Office implements Space {
@@ -14,11 +16,14 @@ public class Office implements Space {
     }
 
     public Office(double square) {
+        if (square <= 0) throw new InvalidSpaceAreaException("Wrong square");
         this.square = square;
         this.rooms = STANDART_ROOMS;
     }
 
     public Office(double square, int rooms) {
+        if (square <= 0) throw new InvalidSpaceAreaException("Wrong square");
+        if (rooms <= 0) throw new InvalidRoomsCountException("Wrong number of rooms");
         this.square = square;
         this.rooms = rooms;
     }
@@ -31,6 +36,7 @@ public class Office implements Space {
 
     @Override
     public void setRooms(int rooms) {
+        if (rooms <= 0) throw new InvalidRoomsCountException("Wrong number of rooms");
         this.rooms = rooms;
     }
 
@@ -41,6 +47,7 @@ public class Office implements Space {
 
     @Override
     public void setSquare(double square) {
+        if (rooms<=0) throw new InvalidSpaceAreaException("Wrong square");
         this.square = square;
     }
 }

@@ -1,5 +1,7 @@
 package buildings;
 
+import exceptions.FloorIndexOutOfBoundException;
+import exceptions.SpaceIndexOutOfBoundException;
 import interfaces.Building;
 import interfaces.Floor;
 import interfaces.Space;
@@ -57,42 +59,55 @@ public class Dwelling implements Building {
 
     @Override
     public Floor getFloor(int index) {
+        if (index < 0 || index > dwelling.size()) throw new FloorIndexOutOfBoundException("Wrong number");
         return dwelling.get(index);
     }
 
     @Override
     public void setFloor(int index, Floor floor) {
+        if (index < 0 || index > dwelling.size()) throw new FloorIndexOutOfBoundException("Wrong number");
         dwelling.set(index, floor);
     }
 
     @Override
     public Space getSpace(int index) {
-        int count = 0;
+        if (index < 0) throw new SpaceIndexOutOfBoundException("Wrong number");
+        int count = 0, exc = 0;
         int i, j;
         Space fl = new Flat();
         for (i = 0; i < dwelling.size(); i++) {
             for (j = 0; j < dwelling.get(i).getSpaces(); j++) {
-                if (count == index) fl = dwelling.get(i).getSpace(j);
+                if (count == index) {
+                    fl = dwelling.get(i).getSpace(j);
+                    exc = 100;
+                }
                 count++;
             }
         }
+        if (exc == 0) throw new SpaceIndexOutOfBoundException("Wrong number");
         return fl;
     }
 
     @Override
     public void setSpace(int index, Space flat) {
-        int count = 0;
+        if (index < 0) throw new SpaceIndexOutOfBoundException("Wrong number");
+        int count = 0, exc = 0;
         int i, j;
         for (i = 0; i < dwelling.size(); i++) {
             for (j = 0; j < dwelling.get(i).getSpaces(); j++) {
-                if (count == index) dwelling.get(i).setSpace(j, flat);
+                if (count == index) {
+                    dwelling.get(i).setSpace(j, flat);
+                    exc = 100;
+                }
                 count++;
             }
         }
+        if (exc == 100) throw new FloorIndexOutOfBoundException("Wrong number");
     }
 
     @Override
     public void addSpace(int index, Space flat) {
+        if (index < 0) throw new SpaceIndexOutOfBoundException("Wrong number");
         int count = 0;
         int i, j;
         for (i = 0; i < dwelling.size(); i++) {
@@ -105,14 +120,19 @@ public class Dwelling implements Building {
 
     @Override
     public void removeSpace(int index) {
-        int count = 0;
+        if (index < 0) throw new SpaceIndexOutOfBoundException("Wrong number");
+        int count = 0, exc = 0;
         int i, j;
         for (i = 0; i < dwelling.size(); i++) {
             for (j = 0; j < dwelling.get(i).getSpaces(); j++) {
-                if (count == index) dwelling.get(i).removeSpace(j);
+                if (count == index) {
+                    dwelling.get(i).removeSpace(j);
+                    exc = 100;
+                }
                 count++;
             }
         }
+        if (exc == 0) throw new FloorIndexOutOfBoundException("Wrong number");
     }
 
     @Override

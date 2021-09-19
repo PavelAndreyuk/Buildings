@@ -1,5 +1,6 @@
 package offices;
 
+import exceptions.SpaceIndexOutOfBoundException;
 import interfaces.Floor;
 import interfaces.Space;
 
@@ -50,21 +51,25 @@ public class OfficeFloor implements Floor {
 
     @Override
     public Space getSpace(int index) {
+        if (index < 0 || index > floor.size()) throw new SpaceIndexOutOfBoundException("Wrong number");
         return floor.get(index);
     }
 
     @Override
     public void setSpace(int index, Space office) {
+        if (index < 0 || index > floor.size()) throw new SpaceIndexOutOfBoundException("Wrong number");
         floor.set(index, office);
     }
 
     @Override
     public void addSpace(int index, Space office) {
+        if (index < 0) throw new SpaceIndexOutOfBoundException("Wrong number");
         floor.add(index, office);
     }
 
     @Override
     public void removeSpace(int index) {
+        if (index < 0 || index > floor.size()) throw new SpaceIndexOutOfBoundException("Wrong number");
         floor.remove(index);
     }
 

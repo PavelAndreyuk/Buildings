@@ -1,6 +1,7 @@
 package offices;
 
-import buildings.Flat;
+import exceptions.FloorIndexOutOfBoundException;
+import exceptions.SpaceIndexOutOfBoundException;
 import interfaces.Building;
 import interfaces.Floor;
 import interfaces.Space;
@@ -61,42 +62,55 @@ public class OfficeBuilding implements Building {
 
     @Override
     public Floor getFloor(int index) {
+        if (index < 0 || index > building.size()) throw new FloorIndexOutOfBoundException("Wrong number");
         return building.get(index);
     }
 
     @Override
     public void setFloor(int index, Floor floor) {
+        if (index < 0 || index > building.size()) throw new FloorIndexOutOfBoundException("Wrong number");
         building.set(index, floor);
     }
 
     @Override
     public Space getSpace(int index) {
-        int count = 0;
+        if (index < 0) throw new SpaceIndexOutOfBoundException("Wrong number");
+        int count = 0, exc = 0;
         int i, j;
         Space office = new Office();
         for (i = 0; i < building.size(); i++) {
             for (j = 0; j < building.get(i).getSpaces(); j++) {
-                if (count == index) office = building.get(i).getSpace(j);
+                if (count == index) {
+                    office = building.get(i).getSpace(j);
+                    exc = 100;
+                }
                 count++;
             }
         }
+        if (exc == 0) throw new SpaceIndexOutOfBoundException("Wrong number");
         return office;
     }
 
     @Override
     public void setSpace(int index, Space office) {
-        int count = 0;
+        if (index < 0) throw new SpaceIndexOutOfBoundException("Wrong number");
+        int count = 0, exc = 0;
         int i, j;
         for (i = 0; i < building.size(); i++) {
             for (j = 0; j < building.get(i).getSpaces(); j++) {
-                if (count == index) building.get(i).setSpace(j, office);
+                if (count == index) {
+                    building.get(i).setSpace(j, office);
+                    exc = 100;
+                }
                 count++;
             }
         }
+        if (exc == 0) throw new FloorIndexOutOfBoundException("Wrong number");
     }
 
     @Override
     public void addSpace(int index, Space office) {
+        if (index < 0) throw new SpaceIndexOutOfBoundException("Wrong number");
         int count = 0;
         int i, j;
         for (i = 0; i < building.size(); i++) {
@@ -109,14 +123,19 @@ public class OfficeBuilding implements Building {
 
     @Override
     public void removeSpace(int index) {
-        int count = 0;
+        if (index < 0) throw new SpaceIndexOutOfBoundException("Wrong number");
+        int count = 0, exc = 0;
         int i, j;
         for (i = 0; i < building.size(); i++) {
             for (j = 0; j < building.get(i).getSpaces(); j++) {
-                if (count == index) building.get(i).removeSpace(j);
+                if (count == index) {
+                    building.get(i).removeSpace(j);
+                    exc = 100;
+                }
                 count++;
             }
         }
+        if (exc == 0) throw new FloorIndexOutOfBoundException("Wrong number");
     }
 
     @Override

@@ -8,7 +8,8 @@ public class main {
         int flats[] = {5, 6, 6, 6};
         int offices[] = {1, 1, 1, 10};
 //        Flat twelve = new Flat(52.4, 2);
-        Flat twentyOne = new Flat(100, 4);
+//        Flat twentyOne = new Flat(100, 4);
+//        Flat test = new Flat(100, -50);
 //        Flat one = new Flat(38.5, 1);
 //        Flat twentyFour = new Flat(45, 1);
         Office one = new Office();
@@ -36,6 +37,7 @@ public class main {
 //        System.out.println("Total number of flats: " + dwelling.getSpaces());
 //        System.out.println("Total number of rooms " + dwelling.getRooms());
 //        System.out.println(dwelling.getSortedArray());
+        System.out.println(dwelling.getSpace(20));
         System.out.println("Number of offices " + officeBuilding.getSpaces() + " number of floors is " + officeBuilding.getNumberOfFloors() + " total area is " + officeBuilding.getSquare());
 
     }
