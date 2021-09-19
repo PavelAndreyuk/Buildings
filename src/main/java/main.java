@@ -1,18 +1,19 @@
 import buildings.Dwelling;
 import buildings.Flat;
+import exceptions.InexchangeableSpacesException;
 import offices.Office;
 import offices.OfficeBuilding;
 
 public class main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InexchangeableSpacesException {
         int flats[] = {5, 6, 6, 6};
         int offices[] = {1, 1, 1, 10};
-//        Flat twelve = new Flat(52.4, 2);
-//        Flat twentyOne = new Flat(100, 4);
+        Flat twelve = new Flat(52.4, 2);
+        Flat twentyOne = new Flat(100, 4);
 //        Flat test = new Flat(100, -50);
-//        Flat one = new Flat(38.5, 1);
-//        Flat twentyFour = new Flat(45, 1);
-        Office one = new Office();
+        Flat one = new Flat(38.5, 1);
+        Flat twentyFour = new Flat(45, 1);
+        Office oneO = new Office();
         OfficeBuilding officeBuilding = new OfficeBuilding(4, offices);
         Dwelling dwelling = new Dwelling(4, flats);
 //        System.out.println("Total number of flats: " + dwelling.getSpaces());
@@ -26,7 +27,10 @@ public class main {
 //        for (int i = 0; i < 20; i++) {
 //            dwelling.removeSpace(i);
 //        }
-
+        Flat nine = new Flat(100, 4);
+        Flat fourteen = new Flat(100, 4);
+        dwelling.setSpace(9, nine);
+        dwelling.setSpace(15, fourteen);
 
 //        System.out.println("Flat 0 has " + dwelling.getSpace(0).getSquare() + " square and " + dwelling.getSpace(0).getRooms() + " rooms");
 //        System.out.println("Flat 8 has " + dwelling.getSpace(8).getSquare() + " square and " + dwelling.getSpace(8).getRooms() + " rooms");
@@ -37,8 +41,15 @@ public class main {
 //        System.out.println("Total number of flats: " + dwelling.getSpaces());
 //        System.out.println("Total number of rooms " + dwelling.getRooms());
 //        System.out.println(dwelling.getSortedArray());
-        System.out.println(dwelling.getSpace(20));
-        System.out.println("Number of offices " + officeBuilding.getSpaces() + " number of floors is " + officeBuilding.getNumberOfFloors() + " total area is " + officeBuilding.getSquare());
+//        System.out.println(dwelling.getSpace(20));
+        System.out.println(dwelling.getSpace(9));
+        System.out.println(dwelling.getSpace(15));
+        System.out.println("First room " + dwelling.getFloor(1).getSpace(4).getRooms() + " " + dwelling.getFloor(1).getSpace(4).getSquare());
+        System.out.println("Second room " + dwelling.getFloor(2).getSpace(4).getRooms() + " " + dwelling.getFloor(2).getSpace(4).getSquare());
+        PlacementExchanger.exchangeFloorRooms(dwelling.getFloor(1), 4, dwelling.getFloor(2), 4);
+        System.out.println(dwelling.getSpace(9));
+        System.out.println(dwelling.getSpace(15));
+//        System.out.println("Number of offices " + officeBuilding.getSpaces() + " number of floors is " + officeBuilding.getNumberOfFloors() + " total area is " + officeBuilding.getSquare());
 
     }
 }

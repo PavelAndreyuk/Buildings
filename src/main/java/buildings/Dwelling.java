@@ -102,7 +102,7 @@ public class Dwelling implements Building {
                 count++;
             }
         }
-        if (exc == 100) throw new FloorIndexOutOfBoundException("Wrong number");
+        if (exc == 0) throw new FloorIndexOutOfBoundException("Wrong number");
     }
 
     @Override
