@@ -8,13 +8,11 @@ import interfaces.Space;
 
 public class PlacementExchanger {
     public static boolean isSpaceExchange(Space space1, Space space2) {
-        if (space1.getRooms() == space2.getRooms() && space1.getSquare() == space2.getSquare()) return true;
-        return false;
+        return space1.getRooms() == space2.getRooms() && space1.getSquare() == space2.getSquare();
     }
 
     public static boolean isFloorExchange(Floor floor1, Floor floor2) {
-        if (floor1.getSpaces() == floor2.getSpaces() && floor1.getSquare() == floor2.getSquare()) return true;
-        return false;
+        return floor1.getSpaces() == floor2.getSpaces() && floor1.getSquare() == floor2.getSquare();
     }
 
     public static void exchangeFloorRooms(Floor floor1, int index1, Floor floor2, int index2) throws InexchangeableSpacesException {

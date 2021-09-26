@@ -4,7 +4,9 @@ import exceptions.InvalidRoomsCountException;
 import exceptions.InvalidSpaceAreaException;
 import interfaces.Space;
 
-public class Office implements Space {
+import java.io.Serializable;
+
+public class Office implements Space, Serializable {
     private double square;
     private int rooms;
     private final double STANDART_SQUARE = 250.0;

@@ -6,11 +6,12 @@ import interfaces.Building;
 import interfaces.Floor;
 import interfaces.Space;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-public class OfficeBuilding implements Building {
-    List<Floor> building;
+public class OfficeBuilding implements Building, Serializable {
+    private List<Floor> building;
 
     public OfficeBuilding(int numberOfFloors, int[] offices) {
         building = new LinkedList<>();

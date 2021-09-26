@@ -4,11 +4,12 @@ import exceptions.SpaceIndexOutOfBoundException;
 import interfaces.Floor;
 import interfaces.Space;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OfficeFloor implements Floor {
-    List<Space> floor;
+public class OfficeFloor implements Floor, Serializable {
+    private List<Space> floor;
 
     public OfficeFloor(int offices) {
         floor = new ArrayList<>(offices);

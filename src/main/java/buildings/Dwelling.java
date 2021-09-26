@@ -6,11 +6,16 @@ import interfaces.Building;
 import interfaces.Floor;
 import interfaces.Space;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dwelling implements Building {
-    List<Floor> dwelling;
+public class Dwelling implements Building, Serializable {
+    private List<Floor> dwelling;
+
+    public Dwelling(){
+        dwelling = new ArrayList<>();
+    }
 
     public Dwelling(int numberOfFloors, int[] numberOfFlats) {
         dwelling = new ArrayList<>(numberOfFloors);
