@@ -1,4 +1,4 @@
-package offices;
+package buildings.office;
 
 import exceptions.FloorIndexOutOfBoundException;
 import exceptions.SpaceIndexOutOfBoundException;
@@ -166,5 +166,28 @@ public class OfficeBuilding implements Building, Serializable {
             }
         }
         return offices;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append("Dwelling(").append(getNumberOfFloors());
+        for (int i = 0; i < building.size(); i++) {
+            str.append(", ");
+            str.append(building.get(i));
+        }
+        str.append(")");
+        return str.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof OfficeBuilding)) return false;
+        if (!(((OfficeBuilding) o).getNumberOfFloors() == this.getNumberOfFloors())) return false;
+        for (int i = 0; i < this.getNumberOfFloors(); i++) {
+            if (!(((OfficeBuilding) o).getFloor(i).equals(this.getFloor(i)))) return false;
+        }
+        return true;
     }
 }

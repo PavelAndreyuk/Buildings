@@ -1,6 +1,6 @@
-import buildings.*;
+import buildings.dwelling.*;
+import buildings.office.*;
 import interfaces.*;
-import offices.*;
 
 import java.io.*;
 import java.util.ArrayList;

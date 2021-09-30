@@ -1,4 +1,4 @@
-package buildings;
+package buildings.dwelling;
 
 import exceptions.FloorIndexOutOfBoundException;
 import exceptions.SpaceIndexOutOfBoundException;
@@ -13,7 +13,7 @@ import java.util.List;
 public class Dwelling implements Building, Serializable {
     private List<Floor> dwelling;
 
-    public Dwelling(){
+    public Dwelling() {
         dwelling = new ArrayList<>();
     }
 
@@ -167,5 +167,28 @@ public class Dwelling implements Building, Serializable {
             }
         }
         return flats;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        str.append("Dwelling(").append(getNumberOfFloors());
+        for (int i = 0; i < dwelling.size(); i++) {
+            str.append(", ");
+            str.append(dwelling.get(i));
+        }
+        str.append(")");
+        return str.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof Dwelling)) return false;
+        if (!(((Dwelling) o).getNumberOfFloors() == this.getNumberOfFloors())) return false;
+        for (int i = 0; i < this.getNumberOfFloors(); i++) {
+            if (!(((Dwelling) o).getFloor(i).equals(this.getFloor(i)))) return false;
+        }
+        return true;
     }
 }

@@ -1,4 +1,4 @@
-package offices;
+package buildings.office;
 
 import exceptions.SpaceIndexOutOfBoundException;
 import interfaces.Floor;
@@ -85,5 +85,28 @@ public class OfficeFloor implements Floor, Serializable {
             }
         }
         return office;
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer str = new StringBuffer();
+        str.append("OfficeFloor(").append(getSpaces());
+        for (int i = 0; i < floor.size(); i++) {
+            str.append(", ");
+            str.append(floor.get(i));
+        }
+        str.append(")");
+        return str.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof OfficeFloor)) return false;
+        if (!(this.getSpaces() == ((OfficeFloor) o).getSpaces())) return false;
+        for (int i = 0; i < this.getSpaces(); i++) {
+            if (!(((OfficeFloor) o).getSpace(i).equals(this.getSpace(i)))) return false;
+        }
+        return true;
     }
 }

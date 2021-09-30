@@ -1,4 +1,4 @@
-package offices;
+package buildings.dwelling;
 
 import exceptions.InvalidRoomsCountException;
 import exceptions.InvalidSpaceAreaException;
@@ -6,24 +6,24 @@ import interfaces.Space;
 
 import java.io.Serializable;
 
-public class Office implements Space, Serializable {
+public class Flat implements Space, Serializable {
     private double square;
     private int rooms;
-    private final double STANDART_SQUARE = 250.0;
-    private final int STANDART_ROOMS = 1;
+    private final double STANDART_SQUARE = 50.0;
+    private final int STANDART_ROOMS = 2;
 
-    public Office() {
+    public Flat() {
         this.square = STANDART_SQUARE;
         this.rooms = STANDART_ROOMS;
     }
 
-    public Office(double square) {
+    public Flat(double square) {
         if (square <= 0) throw new InvalidSpaceAreaException("Wrong square");
         this.square = square;
         this.rooms = STANDART_ROOMS;
     }
 
-    public Office(double square, int rooms) {
+    public Flat(double square, int rooms) {
         if (square <= 0) throw new InvalidSpaceAreaException("Wrong square");
         if (rooms <= 0) throw new InvalidRoomsCountException("Wrong number of rooms");
         this.square = square;
@@ -49,7 +49,21 @@ public class Office implements Space, Serializable {
 
     @Override
     public void setSquare(double square) {
-        if (rooms<=0) throw new InvalidSpaceAreaException("Wrong square");
+        if (rooms <= 0) throw new InvalidSpaceAreaException("Wrong square");
         this.square = square;
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer str = new StringBuffer();
+        str.append("Flat(").append(getRooms()).append(", ").append(getSquare()).append(")");
+        return str.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof Flat)) return false;
+        return (this.rooms == ((Flat) o).getRooms() && this.square == ((Flat) o).getSquare());
     }
 }
