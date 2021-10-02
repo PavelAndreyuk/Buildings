@@ -1,5 +1,6 @@
 package buildings.office;
 
+import buildings.dwelling.DwellingFloor;
 import exceptions.SpaceIndexOutOfBoundException;
 import interfaces.Floor;
 import interfaces.Space;
@@ -8,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OfficeFloor implements Floor, Serializable {
+public class OfficeFloor implements Floor, Serializable, Cloneable {
     private List<Space> floor;
 
     public OfficeFloor(int offices) {
@@ -108,5 +109,21 @@ public class OfficeFloor implements Floor, Serializable {
             if (!(((OfficeFloor) o).getSpace(i).equals(this.getSpace(i)))) return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = getSpaces();
+        for (Space space : floor) hash ^= space.hashCode();
+        return hash;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        OfficeFloor newFloor = new OfficeFloor(getSpaces());
+        for (int i = 0; i < getSpaces(); i++) {
+            newFloor.setSpace(i, (Space) (this.getSpace(i)).clone());
+        }
+        return newFloor;
     }
 }

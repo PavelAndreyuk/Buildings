@@ -5,8 +5,9 @@ import exceptions.InvalidSpaceAreaException;
 import interfaces.Space;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-public class Flat implements Space, Serializable {
+public class Flat implements Space, Serializable, Cloneable {
     private double square;
     private int rooms;
     private final double STANDART_SQUARE = 50.0;
@@ -65,5 +66,19 @@ public class Flat implements Space, Serializable {
         if (o == this) return true;
         if (!(o instanceof Flat)) return false;
         return (this.rooms == ((Flat) o).getRooms() && this.square == ((Flat) o).getSquare());
+    }
+
+    /*
+        hash code using Bitwise exclusive OR of number of rooms and first four bytes of square and second four bytes of square
+     */
+    @Override
+    public int hashCode() {
+        String byteValue = Long.toBinaryString(Double.doubleToLongBits(square));
+        return (rooms ^ Integer.parseInt(byteValue.substring(0, 31))) ^ Integer.parseInt(byteValue.substring(32));
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException{
+        return super.clone();
     }
 }

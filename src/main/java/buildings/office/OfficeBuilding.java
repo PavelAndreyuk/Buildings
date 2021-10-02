@@ -1,5 +1,6 @@
 package buildings.office;
 
+import buildings.dwelling.Dwelling;
 import exceptions.FloorIndexOutOfBoundException;
 import exceptions.SpaceIndexOutOfBoundException;
 import interfaces.Building;
@@ -7,10 +8,11 @@ import interfaces.Floor;
 import interfaces.Space;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class OfficeBuilding implements Building, Serializable {
+public class OfficeBuilding implements Building, Serializable, Cloneable {
     private List<Floor> building;
 
     public OfficeBuilding(int numberOfFloors, int[] offices) {
@@ -189,5 +191,21 @@ public class OfficeBuilding implements Building, Serializable {
             if (!(((OfficeBuilding) o).getFloor(i).equals(this.getFloor(i)))) return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = getNumberOfFloors();
+        for (Floor floor : building) hash ^= floor.hashCode();
+        return hash;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        List<Floor> newBuilding = new ArrayList<>();
+        for (int i = 0; i < getNumberOfFloors(); i++) {
+            newBuilding.add((Floor) this.getFloor(i).clone());
+        }
+        return new OfficeBuilding(newBuilding);
     }
 }

@@ -20,4 +20,6 @@ public interface Floor {
     void removeSpace(int index);
 
     Space getBestSpace();
+
+    Object clone() throws CloneNotSupportedException;
 }

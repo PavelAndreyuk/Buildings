@@ -7,8 +7,9 @@ import interfaces.Space;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class DwellingFloor implements Floor, Serializable {
+public class DwellingFloor implements Floor, Serializable, Cloneable {
     private List<Space> floor;
 
     public DwellingFloor() {
@@ -112,5 +113,21 @@ public class DwellingFloor implements Floor, Serializable {
             if (!(((DwellingFloor) o).getSpace(i).equals(this.getSpace(i)))) return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = getSpaces();
+        for (Space space : floor) hash ^= space.hashCode();
+        return hash;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        DwellingFloor newFloor = new DwellingFloor(getSpaces());
+        for (int i = 0; i < getSpaces(); i++) {
+            newFloor.setSpace(i, (Space) (this.getSpace(i)).clone());
+        }
+        return newFloor;
     }
 }

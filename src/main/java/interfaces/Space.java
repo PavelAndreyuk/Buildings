@@ -9,4 +9,6 @@ public interface Space {
     double getSquare();
 
     void setSquare(double square);
+
+    Object clone() throws CloneNotSupportedException;
 }

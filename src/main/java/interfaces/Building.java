@@ -28,4 +28,6 @@ public interface Building {
     Space getBestSpace();
 
     List<Space> getSortedArray();
+
+    Object clone() throws CloneNotSupportedException;
 }
