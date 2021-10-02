@@ -1,6 +1,6 @@
 package interfaces;
 
-public interface Space {
+public interface Space extends Cloneable, Comparable<Space> {
 
     int getRooms();
 

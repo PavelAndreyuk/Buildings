@@ -7,9 +7,10 @@ import interfaces.Space;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-public class OfficeFloor implements Floor, Serializable, Cloneable {
+public class OfficeFloor implements Floor, Serializable {
     private List<Space> floor;
 
     public OfficeFloor(int offices) {
@@ -79,10 +80,10 @@ public class OfficeFloor implements Floor, Serializable, Cloneable {
     public Space getBestSpace() {
         double max = floor.get(0).getSquare();
         Space office = floor.get(0);
-        for (int i = 0; i < floor.size(); i++) {
-            if (floor.get(i).getSquare() > max) {
-                max = floor.get(i).getSquare();
-                office = floor.get(i);
+        for (Space space : floor) {
+            if (space.getSquare() > max) {
+                max = space.getSquare();
+                office = space;
             }
         }
         return office;
@@ -125,5 +126,36 @@ public class OfficeFloor implements Floor, Serializable, Cloneable {
             newFloor.setSpace(i, (Space) (this.getSpace(i)).clone());
         }
         return newFloor;
+    }
+
+    public Iterator<Space> iterator() {
+        return new spaceIterator(this);
+    }
+
+    private class spaceIterator implements Iterator<Space> {
+        private int index;
+        private Floor floor;
+
+        spaceIterator(Floor floor) {
+            this.floor = floor;
+            index = -1;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index + 1 < floor.getSpaces();
+        }
+
+        @Override
+        public Space next() {
+            index++;
+            return floor.getSpace(index);
+        }
+    }
+
+    @Override
+    public int compareTo(Floor o) {
+        if (this.getSpaces() == o.getSpaces()) return 0;
+        return this.getSpaces() - o.getSpaces() > 0 ? -1 : 1;
     }
 }

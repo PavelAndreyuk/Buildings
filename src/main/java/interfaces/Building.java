@@ -2,7 +2,7 @@ package interfaces;
 
 import java.util.List;
 
-public interface Building {
+public interface Building extends Cloneable, Iterable<Floor> {
     int getNumberOfFloors();
 
     int getSpaces();

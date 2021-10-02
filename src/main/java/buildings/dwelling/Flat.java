@@ -7,7 +7,7 @@ import interfaces.Space;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Flat implements Space, Serializable, Cloneable {
+public class Flat implements Space, Serializable {
     private double square;
     private int rooms;
     private final double STANDART_SQUARE = 50.0;
@@ -78,7 +78,13 @@ public class Flat implements Space, Serializable, Cloneable {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException{
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    @Override
+    public int compareTo(Space o) {
+        if (this.square == o.getSquare()) return 0;
+        return this.square - o.getSquare() > 0 ? -1 : 1;
     }
 }

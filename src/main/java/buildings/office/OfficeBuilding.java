@@ -8,11 +8,11 @@ import interfaces.Floor;
 import interfaces.Space;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class OfficeBuilding implements Building, Serializable, Cloneable {
+public class OfficeBuilding implements Building, Serializable {
     private List<Floor> building;
 
     public OfficeBuilding(int numberOfFloors, int[] offices) {
@@ -202,10 +202,35 @@ public class OfficeBuilding implements Building, Serializable, Cloneable {
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        List<Floor> newBuilding = new ArrayList<>();
+        List<Floor> newBuilding = new LinkedList<>();
         for (int i = 0; i < getNumberOfFloors(); i++) {
             newBuilding.add((Floor) this.getFloor(i).clone());
         }
         return new OfficeBuilding(newBuilding);
+    }
+
+    public Iterator<Floor> iterator() {
+        return new floorIterator(this);
+    }
+
+    private class floorIterator implements Iterator<Floor> {
+        private int index;
+        private Building building;
+
+        public floorIterator(Building building) {
+            this.building = building;
+            index = -1;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index + 1 < building.getNumberOfFloors();
+        }
+
+        @Override
+        public Floor next() {
+            index++;
+            return building.getFloor(index);
+        }
     }
 }

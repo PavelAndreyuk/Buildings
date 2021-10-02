@@ -2,7 +2,7 @@ package interfaces;
 
 import java.util.List;
 
-public interface Floor {
+public interface Floor extends Cloneable, Iterable<Space>, Comparable<Floor> {
     int getSpaces();
 
     double getSquare();

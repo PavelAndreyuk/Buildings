@@ -1,10 +1,22 @@
 import buildings.dwelling.Dwelling;
+import buildings.dwelling.hotel.Hotel;
+import buildings.dwelling.hotel.HotelFloor;
 import exceptions.InexchangeableSpacesException;
+import interfaces.Floor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class main {
     public static void main(String[] args) throws InexchangeableSpacesException {
         int flats[] = {5, 6, 6, 10};
-        int rand[] = {1, 2, 3};
+        Floor first = new HotelFloor(5);
+        Floor second = new HotelFloor(6);
+        List<Floor> floors = new ArrayList<>();
+        floors.add(first);
+        floors.add(second);
+        System.out.println(new Hotel(floors));
+//        int rand[] = {1, 2, 3};
 //        Flat zero = new Flat(54.2, 2);
 //        Flat zero1 = new Flat(54.2, 2);
 //        System.out.println(zero.getSquare()+ " " + zero1.getSquare());
@@ -15,10 +27,10 @@ public class main {
 //        System.out.println(zero.equals(one));
 ////        System.out.println(one);
 //        Flat two = new Flat(110.56, 3);
-        Dwelling dwel = new Dwelling(3, rand);
-        Dwelling dwel1 = new Dwelling(3, rand);
-        dwel.equals(dwel1);
-        System.out.println("TEst " + dwel.equals(dwel1));
+//        Dwelling dwel = new Dwelling(3, rand);
+//        Dwelling dwel1 = new Dwelling(3, rand);
+//        dwel.equals(dwel1);
+//        System.out.println("TEst " + dwel.equals(dwel1));
 //        dwel.setSpace(0, zero);
 //        dwel.setSpace(1, one);
 //        dwel.setSpace(2, two);

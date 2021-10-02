@@ -8,11 +8,10 @@ import interfaces.Space;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
-public class Dwelling implements Building, Serializable, Cloneable {
+public class Dwelling implements Building, Serializable{
     private List<Floor> dwelling;
 
     public Dwelling() {
@@ -208,5 +207,30 @@ public class Dwelling implements Building, Serializable, Cloneable {
             newDwelling.add((Floor) this.getFloor(i).clone());
         }
         return new Dwelling(newDwelling);
+    }
+
+    public Iterator<Floor> iterator() {
+        return new floorIterator(this);
+    }
+
+    private class floorIterator implements Iterator<Floor> {
+        private int index;
+        private Building building;
+
+        public floorIterator(Building building) {
+            this.building = building;
+            index = -1;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index + 1 < building.getNumberOfFloors();
+        }
+
+        @Override
+        public Floor next() {
+            index++;
+            return building.getFloor(index);
+        }
     }
 }

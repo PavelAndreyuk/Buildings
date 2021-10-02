@@ -6,7 +6,7 @@ import interfaces.Space;
 
 import java.io.Serializable;
 
-public class Office implements Space, Serializable, Cloneable {
+public class Office implements Space, Serializable {
     private double square;
     private int rooms;
     private final double STANDART_SQUARE = 250.0;
@@ -48,12 +48,12 @@ public class Office implements Space, Serializable, Cloneable {
 
     @Override
     public void setSquare(double square) {
-        if (rooms<=0) throw new InvalidSpaceAreaException("Wrong square");
+        if (rooms <= 0) throw new InvalidSpaceAreaException("Wrong square");
         this.square = square;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuffer str = new StringBuffer();
         str.append("Office(").append(getRooms()).append(", ").append(getSquare()).append(")");
         return str.toString();
@@ -76,7 +76,13 @@ public class Office implements Space, Serializable, Cloneable {
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException{
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    @Override
+    public int compareTo(Space o) {
+        if (this.square == o.getSquare()) return 0;
+        return this.square - o.getSquare() > 0 ? -1 : 1;
     }
 }
