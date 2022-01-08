@@ -1,4 +1,5 @@
 import buildings.dwelling.Dwelling;
+import buildings.dwelling.Flat;
 import buildings.dwelling.hotel.Hotel;
 import buildings.dwelling.hotel.HotelFloor;
 import exceptions.InexchangeableSpacesException;
@@ -16,6 +17,8 @@ public class main {
         floors.add(first);
         floors.add(second);
         System.out.println(new Hotel(floors));
+//        new Flat(0);
+        System.out.println(new Flat());
 //        int rand[] = {1, 2, 3};
 //        Flat zero = new Flat(54.2, 2);
 //        Flat zero1 = new Flat(54.2, 2);

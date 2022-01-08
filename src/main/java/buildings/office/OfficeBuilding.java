@@ -1,6 +1,5 @@
 package buildings.office;
 
-import buildings.dwelling.Dwelling;
 import exceptions.FloorIndexOutOfBoundException;
 import exceptions.SpaceIndexOutOfBoundException;
 import interfaces.Building;

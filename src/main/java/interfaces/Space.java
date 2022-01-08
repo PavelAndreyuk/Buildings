@@ -1,7 +1,6 @@
 package interfaces;
 
 public interface Space extends Cloneable, Comparable<Space> {
-
     int getRooms();
 
     void setRooms(int rooms);

@@ -5,7 +5,6 @@ import exceptions.InvalidSpaceAreaException;
 import interfaces.Space;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class Flat implements Space, Serializable {
     private double square;
@@ -26,11 +25,10 @@ public class Flat implements Space, Serializable {
 
     public Flat(double square, int rooms) {
         if (square <= 0) throw new InvalidSpaceAreaException("Wrong square");
-        if (rooms <= 0) throw new InvalidRoomsCountException("Wrong number of rooms");
+        if (rooms < 0) throw new InvalidRoomsCountException("Wrong number of rooms");
         this.square = square;
         this.rooms = rooms;
     }
-
 
     @Override
     public int getRooms() {
@@ -39,7 +37,7 @@ public class Flat implements Space, Serializable {
 
     @Override
     public void setRooms(int rooms) {
-        if (rooms <= 0) throw new InvalidRoomsCountException("Wrong number of rooms");
+        if (rooms < 0) throw new InvalidRoomsCountException("Wrong number of rooms");
         this.rooms = rooms;
     }
 

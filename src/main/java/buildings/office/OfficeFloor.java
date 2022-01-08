@@ -1,6 +1,5 @@
 package buildings.office;
 
-import buildings.dwelling.DwellingFloor;
 import exceptions.SpaceIndexOutOfBoundException;
 import interfaces.Floor;
 import interfaces.Space;
@@ -11,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class OfficeFloor implements Floor, Serializable {
-    private List<Space> floor;
+    private final List<Space> floor;
 
     public OfficeFloor(int offices) {
         floor = new ArrayList<>(offices);
@@ -134,7 +133,7 @@ public class OfficeFloor implements Floor, Serializable {
 
     private class spaceIterator implements Iterator<Space> {
         private int index;
-        private Floor floor;
+        private final Floor floor;
 
         spaceIterator(Floor floor) {
             this.floor = floor;
