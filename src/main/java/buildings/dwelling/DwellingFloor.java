@@ -6,11 +6,12 @@ import interfaces.Space;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 public class DwellingFloor implements Floor, Serializable {
-    private List<Space> floor;
+    private final List<Space> floor;
 
     public DwellingFloor() {
         floor = new ArrayList<>();
@@ -58,24 +59,28 @@ public class DwellingFloor implements Floor, Serializable {
     @Override
     public Space getSpace(int index) {
         if (index < 0 || index > floor.size()) throw new SpaceIndexOutOfBoundException("Wrong number");
+
         return floor.get(index);
     }
 
     @Override
     public void setSpace(int index, Space flat) {
         if (index < 0 || index > floor.size()) throw new SpaceIndexOutOfBoundException("Wrong number");
+
         floor.set(index, flat);
     }
 
     @Override
     public void addSpace(int index, Space flat) {
         if (index < 0) throw new SpaceIndexOutOfBoundException("Wrong number");
+
         floor.add(index, flat);
     }
 
     @Override
     public void removeSpace(int index) {
         if (index < 0 || index > floor.size()) throw new SpaceIndexOutOfBoundException("Wrong number");
+
         floor.remove(index);
     }
 
@@ -94,11 +99,11 @@ public class DwellingFloor implements Floor, Serializable {
 
     @Override
     public String toString() {
-        StringBuffer str = new StringBuffer();
+        StringBuilder str = new StringBuilder();
         str.append("DwellingFloor(").append(getSpaces());
-        for (int i = 0; i < floor.size(); i++) {
+        for (Space space : floor) {
             str.append(", ");
-            str.append(floor.get(i));
+            str.append(space);
         }
         str.append(")");
         return str.toString();
@@ -132,14 +137,14 @@ public class DwellingFloor implements Floor, Serializable {
     }
 
     public Iterator<Space> iterator() {
-        return new spaceIterator(this);
+        return new SpaceIterator(this);
     }
 
-    private class spaceIterator implements Iterator<Space> {
+    private static class SpaceIterator implements Iterator<Space> {
+        private final Floor floor;
         private int index;
-        private Floor floor;
 
-        spaceIterator(Floor floor) {
+        SpaceIterator(Floor floor) {
             this.floor = floor;
             index = -1;
         }

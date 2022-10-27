@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Dwelling implements Building, Serializable{
-    private List<Floor> dwelling;
+public class Dwelling implements Building, Serializable {
+    private final List<Floor> dwelling;
 
     public Dwelling() {
         dwelling = new ArrayList<>();
@@ -37,24 +37,27 @@ public class Dwelling implements Building, Serializable{
     @Override
     public int getSpaces() {
         int sum = 0;
-        for (int i = 0; i < dwelling.size(); i++)
-            sum += dwelling.get(i).getSpaces();
+        for (Floor spaces : dwelling) {
+            sum += spaces.getSpaces();
+        }
         return sum;
     }
 
     @Override
     public double getSquare() {
         double sum = 0;
-        for (int i = 0; i < dwelling.size(); i++)
-            sum += dwelling.get(i).getSquare();
+        for (Floor spaces : dwelling) {
+            sum += spaces.getSquare();
+        }
         return sum;
     }
 
     @Override
     public int getRooms() {
         int sum = 0;
-        for (int i = 0; i < dwelling.size(); i++)
-            sum += dwelling.get(i).getRooms();
+        for (Floor spaces : dwelling) {
+            sum += spaces.getRooms();
+        }
         return sum;
     }
 
@@ -76,32 +79,34 @@ public class Dwelling implements Building, Serializable{
     }
 
     @Override
-    public Space getSpace(int index) {
-        if (index < 0) throw new SpaceIndexOutOfBoundException("Wrong number");
+    public Space getSpace(int indexOfFlat) {
+        if (indexOfFlat < 0) throw new SpaceIndexOutOfBoundException("Wrong number");
+
         int count = 0, exc = 0;
-        int i, j;
-        Space fl = new Flat();
-        for (i = 0; i < dwelling.size(); i++) {
-            for (j = 0; j < dwelling.get(i).getSpaces(); j++) {
-                if (count == index) {
-                    fl = dwelling.get(i).getSpace(j);
+        int floorCounter, spacesOnFloorCounter;
+        Space flat = new Flat();
+        for (floorCounter = 0; floorCounter < dwelling.size(); floorCounter++) {
+            for (spacesOnFloorCounter = 0; spacesOnFloorCounter < dwelling.get(floorCounter).getSpaces(); spacesOnFloorCounter++) {
+                if (count == indexOfFlat) {
+                    flat = dwelling.get(floorCounter).getSpace(spacesOnFloorCounter);
                     exc = 100;
                 }
                 count++;
             }
         }
         if (exc == 0) throw new SpaceIndexOutOfBoundException("Wrong number");
-        return fl;
+        return flat;
     }
 
     @Override
-    public void setSpace(int index, Space flat) {
-        if (index < 0) throw new SpaceIndexOutOfBoundException("Wrong number");
+    public void setSpace(int indexOfFlat, Space flat) {
+        if (indexOfFlat < 0) throw new SpaceIndexOutOfBoundException("Wrong number");
+
         int count = 0, exc = 0;
         int i, j;
         for (i = 0; i < dwelling.size(); i++) {
             for (j = 0; j < dwelling.get(i).getSpaces(); j++) {
-                if (count == index) {
+                if (count == indexOfFlat) {
                     dwelling.get(i).setSpace(j, flat);
                     exc = 100;
                 }
@@ -114,6 +119,7 @@ public class Dwelling implements Building, Serializable{
     @Override
     public void addSpace(int index, Space flat) {
         if (index < 0) throw new SpaceIndexOutOfBoundException("Wrong number");
+
         int count = 0;
         int i, j;
         for (i = 0; i < dwelling.size(); i++) {
@@ -127,6 +133,7 @@ public class Dwelling implements Building, Serializable{
     @Override
     public void removeSpace(int index) {
         if (index < 0) throw new SpaceIndexOutOfBoundException("Wrong number");
+
         int count = 0, exc = 0;
         int i, j;
         for (i = 0; i < dwelling.size(); i++) {
@@ -210,14 +217,14 @@ public class Dwelling implements Building, Serializable{
     }
 
     public Iterator<Floor> iterator() {
-        return new floorIterator(this);
+        return new FloorIterator(this);
     }
 
-    private class floorIterator implements Iterator<Floor> {
+    private static class FloorIterator implements Iterator<Floor> {
+        private final Building building;
         private int index;
-        private Building building;
 
-        public floorIterator(Building building) {
+        public FloorIterator(Building building) {
             this.building = building;
             index = -1;
         }
